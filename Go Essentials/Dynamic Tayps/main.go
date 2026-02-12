@@ -7,6 +7,7 @@ func main() {
 	fmt.Println("Result of adding integers:", result1)
 
 	result2 := genericAdd(5, 10)  // type of result is int
+	fmt.Println("Result of adding integers with generics:", result2)
 	
 }
 
