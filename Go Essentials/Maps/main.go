@@ -10,8 +10,6 @@ func main() {
 	fmt.Println(userNAmes)
 	fmt.Println("===========")
 
-
-
 	users := make([]string, 2)
 	users = append(users, "Max")
 	users = append(users, "Manuel")
@@ -21,7 +19,6 @@ func main() {
 	fmt.Println(users)
 	fmt.Println("===========")
 
-	
 	userNames := make([]string, 2, 5)
 	userNames[0] = "Julia"
 	userNames[1] = "Nic"
