@@ -84,6 +84,7 @@ func checkBalance() (error) {
 	return nil
 }
 
+
 func depositMoney() (error) {
 	var depositMoney float64
 	fmt.Println("Enter the amount to deposit:")

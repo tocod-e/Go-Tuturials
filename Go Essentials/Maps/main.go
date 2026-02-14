@@ -2,6 +2,13 @@ package main
 
 import "fmt"
 
+// type alliases
+type floatMap map[string]float64
+func (a floatMap) output()  {
+	fmt.Println(a)
+}
+
+
 func main() {
 
 	userNAmes := []string{}
@@ -27,5 +34,40 @@ func main() {
 	fmt.Println(userNames)
 
 	fmt.Println("===========")
+
+	courseRating := map[string]float64{}
+	courseRating["Go"] = 4.5
+	courseRating["Java"] = 7.3
+
+	fmt.Println(courseRating)
+
+	coursesRate := map[string]float64{}
+	coursesRate["Go"] = 4.5
+	coursesRate["Java"] = 7.3
+
+	fmt.Println(coursesRate)
+
+	courseRat := make(map[string]float64, 3)
+	courseRat["Python"] = 9.99
+	courseRat["C Sharp"] = 7.3
+	courseRat["Java Script"] = 8.9
+
+	fmt.Println(courseRat)
+
+
+	// Using the type Illiases
+	productsRating := make(floatMap, 3)
+	productsRating["PC"] = 4.3
+	productsRating["Notebook"] = 7.9
+	productsRating["Mac"] = 9.7
+
+	productsRating.output()
+
+
+	// for in arrays
+
+	for index, value := range userNames{
+		fmt.Println(index, value)
+	}
 
 }
