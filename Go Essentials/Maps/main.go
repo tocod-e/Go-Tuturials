@@ -26,4 +26,6 @@ func main() {
 	userNames = append(userNames, "Manuel")
 	fmt.Println(userNames)
 
+	fmt.Println("===========")
+
 }
