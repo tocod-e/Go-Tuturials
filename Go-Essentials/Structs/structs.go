@@ -2,19 +2,19 @@ package main
 
 import (
 	"fmt"
+
 	"example.com/structs/user"
 )
 
-func main(){
+func main() {
 	userFirstName := getUserDate("Please enter your first name: ")
 	userLastName := getUserDate("Please enter your last name: ")
 	userBirthDate := getUserDate("Plase enter your birthdate (MM/DD/YYYY): ")
 
-
 	var userApp *user.User
 
 	userApp, err := user.New(userFirstName, userLastName, userBirthDate)
-	if err != nil{
+	if err != nil {
 		fmt.Println(err)
 		return
 	}
@@ -24,8 +24,7 @@ func main(){
 	admin.OutputUserDetails()
 	admin.ClearUserName()
 	admin.OutputUserDetails()
-	
-	
+
 	userApp.OutputUserDetails()
 
 	userApp.ClearUserName()
@@ -34,12 +33,10 @@ func main(){
 
 }
 
-
-
-func getUserDate(promptText string) string{
+func getUserDate(promptText string) string {
 	fmt.Print(promptText)
 	var value string
 	fmt.Scanln(&value)
 
-	return  value
+	return value
 }
