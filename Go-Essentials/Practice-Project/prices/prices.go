@@ -1,67 +1,54 @@
 package prices
 
 import (
-	"bufio"
 	"fmt"
-	"os"
-	"strconv"
+	"example.com/practice/conversion"
+	"example.com/practice/iomanager"
 )
 
 type TaxIncludedPriceJob struct {
-	TaxRate           float64
-	InputPrices       []float64
-	TaxIncludedPrices map[string]float64
+	IOManger          iomanager.IOManger `json:"-"`
+	TaxRate           float64            `json:"tax_rate"`
+	InputPrices       []float64          `json:"input_prices"`
+	TaxIncludedPrices map[string]string  `json:"tax_included_prices"`
 }
 
-func NewTaxIncludedPriceJob(taxRate float64) *TaxIncludedPriceJob {
+func NewTaxIncludedPriceJob(iom iomanager.IOManger, taxRate float64) *TaxIncludedPriceJob {
 	return &TaxIncludedPriceJob{
+		IOManger:    iom,
 		TaxRate:     taxRate,
 		InputPrices: []float64{10, 20, 30},
 	}
 }
 
-func (job *TaxIncludedPriceJob) Process() {
-	job.LoadData()
+func (job *TaxIncludedPriceJob) Process() error{
+	err := job.LoadData()
+
+	if err != nil {
+		return err
+	}
+
 	result := make(map[string]string)
 	for _, priceVal := range job.InputPrices {
 		taxIncludedPrice := priceVal * (1 + job.TaxRate)
 		result[fmt.Sprintf("%.2f", priceVal)] = fmt.Sprintf("%.2f", taxIncludedPrice)
 	}
-	fmt.Println(result)
+	job.TaxIncludedPrices = result
+
+	return 	job.IOManger.WriteResult(job)
 }
 
-func (job *TaxIncludedPriceJob) LoadData() {
-	file, err := os.Open("prices.txt")
+func (job *TaxIncludedPriceJob) LoadData() error{
+	lines, err := job.IOManger.ReadLines()
 	if err != nil {
-		fmt.Println("Could not open file!")
-		fmt.Println(err)
-		return
-	}
-	scanner := bufio.NewScanner(file)
-	var lines []string
-	for scanner.Scan(){
-		lines = append(lines, scanner.Text())
+		return err
 	}
 
-	err = scanner.Err()
-
+	prices, err := conversion.StringsToFloats(lines)
 	if err != nil {
-		fmt.Println("Reading the file content failed.")
-		fmt.Println(err)
-		file.Close()
-		return
-	}
-
-	prices := make([]float64, len(lines))
-
-	for lineIndex, lineVal := range lines{
-		floatPrice, err := strconv.ParseFloat(lineVal, 64)
-		if err != nil {
-			fmt.Println("Converting price to float faild.")
-			fmt.Println(err)
-			return
-		}
-		prices[lineIndex] = floatPrice
+		return err
 	}
 	job.InputPrices = prices
+	return nil
+
 }
