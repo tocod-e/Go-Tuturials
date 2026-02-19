@@ -2,7 +2,7 @@ package main
 
 import "fmt"
 
-// type alliases
+// type aliases
 type floatMap map[string]float64
 func (a floatMap) output()  {
 	fmt.Println(a)
@@ -55,7 +55,7 @@ func main() {
 	fmt.Println(courseRat)
 
 
-	// Using the type Illiases
+	// Using the type Aliases
 	productsRating := make(floatMap, 3)
 	productsRating["PC"] = 4.3
 	productsRating["Notebook"] = 7.9
